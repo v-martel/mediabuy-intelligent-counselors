@@ -5,30 +5,31 @@ import {SessionReport} from '../../../domain/VoluumSession/SessionReport'
 import {ReportInputInterface} from '../../../domain/Reports/ReportInputInterface'
 import {ReportInterface} from '../../../domain/Reports/ReportInterface'
 import {LayersConfiguration} from '../../../../shared/configuration/LayersConfiguration'
+import {VoluumApiProviderInterface} from './VoluumApiProviderInterface'
 
 
 @injectable()
-export class VoluumApiProvider {
+export class VoluumApiProvider implements VoluumApiProviderInterface {
   @inject('LayersConfiguration') layersConfiguration: LayersConfiguration
 
   private client = new Axios()
 
-  authenticate(
+  authenticate = async (
     email: string,
     password: string,
     deviceId: string
-  ): string {
+  ): Promise<string> => {
     const config = this.layersConfiguration
       .infrastructure
       .providers
       .VoluumApiProvider
 
-    this.client.post()
+    this.client.post(config.auth.url)
 
     return 'blabla'
   }
 
-  sessionIsHealthy(authenticationToken: string): SessionReport {
+  sessionIsHealthy = async (authenticationToken: string): Promise<SessionReport> => {
     return {
       alive: true,
       time: 111,
@@ -37,7 +38,7 @@ export class VoluumApiProvider {
     }
   }
 
-  getReport(query: ReportInputInterface): ReportInterface {
+  getReport = (query: ReportInputInterface): Promise<ReportInterface> => {
     return {
       totalRows: 0,
       rows: [{}]

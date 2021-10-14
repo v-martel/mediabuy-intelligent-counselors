@@ -8,8 +8,42 @@ export class LayersConfiguration {
   infrastructure = {
     providers: {
       VoluumApiProvider: {
-        auth: {},
-        healthCheck: {},
+        auth: {
+          url: process.env.AUTH_URL,
+          headers: {
+            'authority': process.env.AUTHORITY,
+            'sec-ch-ua': process.env.SEC_CH_UA,
+            'sec-ch-ua-mobile': process.env.SEC_CH_UA_MOBILE,
+            'user-agent': process.env.USER_AGENT,
+            'content-type': process.env.CONTENT_TYPE,
+            'accept': process.env.ACCEPT,
+            'sec-ch-ua-platform': process.env.SEC_UA_PLATFORM,
+            'origin': process.env.ORIGIN,
+            'sec-fetch-site': process.env.SEC_FETCH_SITE,
+            'sec-fetch-mode': process.env.SEC_FETCH_MODE,
+            'sec-fetch-dest': process.env.SEC_FETCH_DEST,
+            'referer': process.env.REFERER,
+            'accept-language': process.env.ACCEPT_LANGUAGE
+          }
+        },
+        healthCheck: {
+          url: process.env.HEALTHCHECK,
+          headers: {
+            'authority': process.env.AUTHORITY,
+            'sec-ch-ua': process.env.SEC_CH_UA,
+            'sec-ch-ua-mobile': process.env.SEC_CH_UA_MOBILE,
+            'user-agent': process.env.USER_AGENT,
+            'cwauth-panel-token': process.env.CWAUTH_PANEL_TOKEN,
+            'accept': process.env.ACCEPT,
+            'sec-ch-ua-platform': process.env.SEC_UA_PLATFORM,
+            'origin': process.env.ORIGIN,
+            'sec-fetch-site': process.env.SEC_FETCH_SITE,
+            'sec-fetch-mode': process.env.SEC_FETCH_MODE,
+            'sec-fetch-dest': process.env.SEC_FETCH_DEST,
+            'referer': process.env.REFERER,
+            'accept-language': process.env.ACCEPT_LANGUAGE
+          }
+        },
         report: {
           url: process.env.REPORT_URL,
           headers: {
