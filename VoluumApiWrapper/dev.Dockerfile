@@ -1,14 +1,10 @@
-FROM node:12-alpine
+FROM node:12
 
-RUN npm i -g typescript ts-node eslint nodemon forever
+RUN npm i -g typescript ts-node eslint nodemon forever tsc-watch
 
-EXPOSE 3000
-EXPOSE 5858
+EXPOSE 3500
 
-ADD . /app/VoluumApiWrapper
+ADD . /app/voluum-api-wrapper
+WORKDIR /app/voluum-api-wrapper
 
 RUN npm i
-RUN npm start
-
-CMD ["npm", "run", "start"]
-

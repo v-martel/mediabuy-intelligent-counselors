@@ -1,5 +1,5 @@
 import {inject, injectable} from 'inversify'
-import {Axios} from 'axios'
+import {Axios, AxiosResponse} from 'axios'
 
 import {SessionReport} from '../../../domain/VoluumSession/SessionReport'
 import {ReportInputInterface} from '../../../domain/Reports/ReportInputInterface'
@@ -18,18 +18,26 @@ export class VoluumApiProvider implements VoluumApiProviderInterface {
     email: string,
     password: string,
     deviceId: string
-  ): Promise<string> => {
+  ): Promise<any> => {
     const config = this.layersConfiguration
       .infrastructure
       .providers
       .VoluumApiProvider
+      .auth
 
-    this.client.post(config.auth.url)
+    const res: AxiosResponse = await this.client.post(
+      config.url!,
+      {email, password, deviceId},
+      {
+        headers: config.headers!
+      }
+    )
 
-    return 'blabla'
+    return res || ''
   }
 
   sessionIsHealthy = async (authenticationToken: string): Promise<SessionReport> => {
+    console.log(authenticationToken)
     return {
       alive: true,
       time: 111,
@@ -38,7 +46,8 @@ export class VoluumApiProvider implements VoluumApiProviderInterface {
     }
   }
 
-  getReport = (query: ReportInputInterface): Promise<ReportInterface> => {
+  getReport = async (query: ReportInputInterface): Promise<ReportInterface> => {
+    console.log(query)
     return {
       totalRows: 0,
       rows: [{}]

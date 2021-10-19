@@ -8,5 +8,15 @@
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended"
-  ]
+  ],
+  "env": {
+    "node": true,
+    "es6": true,
+    "browser": true
+  },
+  "rules": {
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "no-console": "off",
+    "comma-dangle": "off"
+  }
 }

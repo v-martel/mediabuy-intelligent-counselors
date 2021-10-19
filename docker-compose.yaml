@@ -1,0 +1,16 @@
+version: '3.0'
+
+services:
+  voluum-api-wrapper-service-watch:
+    build:
+      context: ./VoluumApiWrapper
+      dockerfile: dev.Dockerfile
+    stdin_open: true
+    tty: true
+    ports:
+      - 3500:3500
+    volumes:
+      - ./VoluumApiWrapper:/app/VoluumApiWrapper
+    env_file:
+      - ./VoluumApiWrapper/env_files/voluum_api_config.env
+    command: "bash -c 'ls -a && npm run watch-debug'"
